@@ -1,0 +1,24 @@
+pip install streamlit
+pip install XlsxWriter pymongo
+pip install speechrecognition pydub audio-recorder-streamlit
+
+for whisper
+pip install transformers
+
+
+http
+streamlit run app.py
+
+
+https:
+
+streamlit run app.py --server.port 7000 --server.sslCertFile cert.pem --server.sslKeyFile key.pem
+
+streamlit run app.py \
+  --server.address 192.168.1.100 \
+  --server.port 8443 \
+  --server.sslCertFile cert.pem \
+  --server.sslKeyFile key.pem
+
+github key / password
+# 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 
