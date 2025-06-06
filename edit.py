@@ -8,6 +8,13 @@ import module as md
 from PIL import Image
 import random
 
+# # Initialize session_state
+# for field in ['name', 'father_name', 'mother_name', 'nrc', 'address', 'punish']:
+#     if field not in st.session_state:
+#         st.session_state[field] = ""
+#     if f"audio_key_{field}" not in st.session_state:
+#         st.session_state[f"audio_key_{field}"] = 0
+
 # Custom CSS for better UI
 st.markdown("""
 <style>
@@ -111,26 +118,31 @@ if data:
         with col2:
             col2.write("<br>", unsafe_allow_html=True)
             md.record_audio_and_update("name")
+        col1,col2=st.columns([5,1])
         with col1:
             father_name=st.text_input("အဖအမည်",value=st.session_state['father_name'],key="father_name_input",icon="♻️")
         with col2:
             col2.write("<br>", unsafe_allow_html=True)
             md.record_audio_and_update("father_name")
+        col1,col2=st.columns([5,1])
         with col1:
             mother_name=st.text_input("အမိအမည်",value=st.session_state['mother_name'],key="mother_name_input",icon="♻️")
         with col2:
             col2.write("<br>", unsafe_allow_html=True)
             md.record_audio_and_update("mother_name")
+        col1,col2=st.columns([5,1])
         with col1:
             nrc=st.text_input("မှတ်ပုံတင်အမှတ်",value=st.session_state['nrc'],key="nrc_input",icon="♻️")
         with col2:
             col2.write("<br>", unsafe_allow_html=True)
             md.record_audio_and_update("nrc")
+        col1,col2=st.columns([5,1])
         with col1:
             punish=st.text_input("ပြစ်မှုအမျိုးအစား",value=st.session_state['punish'],key="punish_input",icon="♻️")
         with col2:
             col2.write("<br>", unsafe_allow_html=True)
             md.record_audio_and_update("punish")
+        col1,col2=st.columns([5,1])
         with col1:
             address=st.text_area("နေရပ်လိပ်စာ",value=st.session_state['address'],key="address_input")
         with col2:
@@ -153,7 +165,6 @@ if data:
                 img1 = st.session_state.get("img1", None)
                 img = st.session_state.get("img", None)
                 pic_path = None
-                print(st.session_state.chk_edit)
                 # Image ရှိလားစစ်
                 if img1 is not None:
                     # 6 လုံးကိန်းပြည့် random ဖြစ်စေရန်

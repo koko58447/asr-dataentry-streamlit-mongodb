@@ -15,7 +15,7 @@ if not os.path.exists(UPLOAD_FOLDER):
 # md.delete_session()
 
 # Initialize session_state
-for field in ['name', 'father_name', 'mother_name', 'nrc', 'address', 'punish']:
+for field in ['name', 'father_name', 'mother_name', 'nrc', 'address', 'punish','name_1']:
     if field not in st.session_state:
         st.session_state[field] = ""
     if f"audio_key_{field}" not in st.session_state:
@@ -29,7 +29,7 @@ def save_to_mongodb(data):
     collection.insert_one(data)
 
 def clean_text():
-    for field in ['name', 'father_name', 'mother_name', 'nrc', 'address', 'punish']:
+    for field in ['name', 'father_name', 'mother_name', 'nrc', 'address', 'punish','name_1']:
         st.session_state[field] = ""
     # Image widgets တွေကို reset (မဖျက်ဘဲ session_state မှာမရှိရင် skip လုပ်)
     if "camera_input" in st.session_state:
@@ -56,7 +56,6 @@ labels = {
 }
 
 cola, colb = st.columns([3, 2])
-
 with cola:
     col1,col2=st.columns([5,1])
     with col1:

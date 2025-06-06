@@ -27,11 +27,11 @@ with st.sidebar:
     )
 
     if genre == ":rainbow[Own Model]":
-        st.session_state['model']=genre
+        st.session_state['model']="own"
         st.write("Selected Model is : "+genre)
         
     else:
-        st.session_state['model']=genre
+        st.session_state['model']="online"
         st.write("Selected Model is : "+genre)
    
 # Set up navigation

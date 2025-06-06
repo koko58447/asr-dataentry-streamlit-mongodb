@@ -125,7 +125,7 @@ if not df.empty:
         hide_index=True,
     )
 
-    col1, col2, col3, col4 = st.columns([1, 1, 1, 1])
+    col1,col2, col3, col4 = st.columns([ 1,1, 1, 1])
 
     with col1:
         st.markdown('<div class="button-wrapper">', unsafe_allow_html=True)

@@ -61,44 +61,49 @@ def whisper_asr(audio_path):
     return result
 
 def online_asr(audio):
-    if audio is not None:
-        try:
-            # Convert audio bytes to file-like object
-            audio_file = BytesIO(audio)
-            recognizer = sr.Recognizer()
+   
+    try:
+        # Convert audio bytes to file-like object
+        audio_file = BytesIO(audio)
+        recognizer = sr.Recognizer()
 
-            with sr.AudioFile(audio_file) as source:
-                audio_data = recognizer.record(source)
+        with sr.AudioFile(audio_file) as source:
+            audio_data = recognizer.record(source)
 
-            # Recognize Myanmar language
-            text = recognizer.recognize_google(audio_data, language="my-MM")
-            return text
+        # Recognize Myanmar language
+        text = recognizer.recognize_google(audio_data, language="my-MM")
+        return text
 
-        except sr.UnknownValueError:
-            st.error("⚠️ error။")
-        except sr.RequestError as e:
-            st.error(f"⚠️ error: {e}")
+    except sr.UnknownValueError:
+        st.error("⚠️ error။")
+    except sr.RequestError as e:
+        st.error(f"⚠️ error: {e}")
 
 def record_audio_and_update(field_name):
       # Ensure session_state keys exist
     if f"audio_key_{field_name}" not in st.session_state:
-        st.session_state[f"audio_key_{field_name}"] = 0
+        st.session_state[f"audio_key_{field_name}"] = 0   
 
     # Audio Recorder UI
+   
     audio = audio_recorder(
         text="",
         recording_color="#FF0000",
         neutral_color="#1B7B3DFF",
-        icon_size="2x",
+        icon_size="4x",
         key=f"audio_recorder_{field_name}_{st.session_state[f'audio_key_{field_name}']}"
     )
+    
 
     if audio is not None: 
-        # text=""
-        if st.session_state.model==":rainbow[Own Model]":
+        text=""
+        if st.session_state.model=="own":
+            print("own model")
             text=whisper_asr(audio)
-        else:
+        elif st.session_state.model=="online":
+            print("online model")
             text=online_asr(audio)
+        # # text=online_asr(audio)
         # text=online_asr(audio)
         print(text)
         st.session_state[field_name] = text
