@@ -8,9 +8,9 @@ from audio_recorder_streamlit import audio_recorder
 from io import BytesIO
 import speech_recognition as sr
 #whisper model
-from transformers import pipeline,WhisperTokenizer
-import torch
-import librosa
+# from transformers import pipeline,WhisperTokenizer
+# import torch
+# import librosa
 import re 
 
 # connection db with table parameter
@@ -24,39 +24,39 @@ checkpoint_path = "./gradio/checkpoint-650000/"
 pretrained_tokenizer = "./gradio/faster-whisper-large.nb/"
 
 # Move the model to GPU if available
-device = "cuda" if torch.cuda.is_available() else "cpu"
+# device = "cuda" if torch.cuda.is_available() else "cpu"
 
-asr_pipeline=pipeline('automatic-speech-recognition',model=checkpoint_path,tokenizer=pretrained_tokenizer,device=0 if device=="cuda" else -1)
+# asr_pipeline=pipeline('automatic-speech-recognition',model=checkpoint_path,tokenizer=pretrained_tokenizer,device=0 if device=="cuda" else -1)
 
 def whisper_asr(audio_path):
-    audio_path = BytesIO(audio_path)
-    stream, sr = librosa.load(audio_path, sr=16000)  # Load as waveform and set sampling rate
-    # Define chunk size (e.g., 10 seconds)
-    chunk_duration = 10  # seconds
-    chunk_samples = chunk_duration * sr
+    # audio_path = BytesIO(audio_path)
+    # stream, sr = librosa.load(audio_path, sr=16000)  # Load as waveform and set sampling rate
+    # # Define chunk size (e.g., 10 seconds)
+    # chunk_duration = 10  # seconds
+    # chunk_samples = chunk_duration * sr
 
-    transcriptions = []
-    for i in range(0, len(stream), chunk_samples):
-        audio_chunk = stream[i:i + chunk_samples]
-        chunk_start_time = i / sr
-        chunk_end_time = (i + chunk_samples) / sr
+    # transcriptions = []
+    # for i in range(0, len(stream), chunk_samples):
+    #     audio_chunk = stream[i:i + chunk_samples]
+    #     chunk_start_time = i / sr
+    #     chunk_end_time = (i + chunk_samples) / sr
 
-        transcription = asr_pipeline({
-            "sampling_rate": sr,
-            "raw": audio_chunk,
-            "return_timestamps": True
-        })
-        cleaned_text = re.sub(r"[a-z<|>]", "", transcription["text"])
-        transcriptions.append({
-                "text": cleaned_text
-            })
+    #     transcription = asr_pipeline({
+    #         "sampling_rate": sr,
+    #         "raw": audio_chunk,
+    #         "return_timestamps": True
+    #     })
+    #     cleaned_text = re.sub(r"[a-z<|>]", "", transcription["text"])
+    #     transcriptions.append({
+    #             "text": cleaned_text
+    #         })
         
-    result=""
-    i=1
-    for segment in transcriptions:
-        # result+=f"{i}\n{segment['start']} ---> {segment['end']} \n{segment['text']}\n\n\n"
-        result+=f"{segment['text']}\n\n"
-        i=i+1
+    # result=""
+    # i=1
+    # for segment in transcriptions:
+    #     # result+=f"{i}\n{segment['start']} ---> {segment['end']} \n{segment['text']}\n\n\n"
+    #     result+=f"{segment['text']}\n\n"
+    #     i=i+1
 
     return result
 
