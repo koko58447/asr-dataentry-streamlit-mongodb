@@ -1,0 +1,10 @@
+streamlit
+XlsxWriter 
+pymongo
+speechrecognition
+pydub 
+audio-recorder-streamlit
+transformers
+librosa
+
+
